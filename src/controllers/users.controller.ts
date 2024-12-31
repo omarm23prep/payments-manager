@@ -44,28 +44,28 @@ class UsersController {
     }
   };
 
-  // public updateUser = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const userId: string = req.params.id;
-  //     const userData: CreateUserDto = req.body;
-  //     const updateUserData: User = await this.userService.updateUser(userId, userData);
+  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const userData = req.body;
+      const updateUserData: User | null = await this.usersService.updateUser(userId, userData);
 
-  //     res.status(200).json({ data: updateUserData, message: 'updated' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(200).json({ data: updateUserData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  // public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const userId: string = req.params.id;
-  //     const deleteUserData: User = await this.userService.deleteUser(userId);
+  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const deleteUserData = await this.usersService.removeUser(userId);
 
-  //     res.status(200).json({ data: deleteUserData, message: 'deleted' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(200).json({ data: deleteUserData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default UsersController;

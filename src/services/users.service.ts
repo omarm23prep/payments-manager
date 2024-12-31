@@ -52,6 +52,34 @@ class UserService {
 
     return createUserData;
   }
+
+  public async removeUser(id: string): Promise<User | null> {
+    try {
+      const removedUser: User | null = await this.users.findOneAndDelete({_id: id});
+
+      if (removedUser) console.log("Removed user:", removedUser);
+
+      return removedUser;
+    } catch (error: unknown) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  public async updateUser(id: string, userData: User): Promise<User | null> {
+    try {
+      const updatedUser: User | null = await this.users.findOneAndUpdate(
+        { _id: id },
+        { $set: userData }
+      );
+
+      return updatedUser;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
 }
 
 export default UserService;
