@@ -33,9 +33,9 @@ class PredioService {
       throw new Error('Predio data is empty');
     }
 
-    const findPredio: Predio | null = await this.predio.findOne({ CUENTA: predioData.CUENTA });
+    const findPredio: Predio | null = await this.predio.findOne({ CUENTA: predioData.cuenta });
     if (findPredio) {
-      throw new Error(`Predio with CUENTA: ${predioData.CUENTA} already exists`);
+      throw new Error(`Predio with CUENTA: ${predioData.cuenta} already exists`);
     }
 
     const createdPredio: Predio = await this.predio.create(predioData);

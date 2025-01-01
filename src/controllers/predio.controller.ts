@@ -42,7 +42,7 @@ class PredioController {
       const predioData: Predio = req.body;
       const createPredioData: Predio = await this.predioService.createPredio(predioData);
 
-      res.status(201).json({ message: `El predio con cuenta ${createPredioData.CUENTA} se ha creado satisfactoriamente` });
+      res.status(201).json({ message: `El predio con cuenta ${createPredioData.cuenta} se ha creado satisfactoriamente` });
     } catch (error) {
       next(error);
     }
