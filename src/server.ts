@@ -4,6 +4,7 @@ import App from "./app";
 import IndexRoute from "./routes/index.route";
 import AuthRoutes from "./routes/auth.route"; 
 import UsersRoute from "./routes/users.routes";
+import PrediosRoute from "./routes/predios.routes";
 
 // const app = express();
 // const port = process.env.PORT || 3001;
@@ -20,5 +21,6 @@ const app = new App([
   new IndexRoute(),
   new AuthRoutes(),
   new UsersRoute(),
+  new PrediosRoute(),
 ])
 app.listen()
