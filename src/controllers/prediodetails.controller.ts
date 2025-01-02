@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import PredioDetailsService from '../services/prediodetails.service';
 import { PredioDetails } from '../models/prediodetails';
+import ColindaService from '../services/colinda.service';
 
 class PredioDetailsController {
-  public predioDetailsService = new PredioDetailsService();
+  private predioDetailsService = new PredioDetailsService();
+  private colindaService = new ColindaService();
 
   // Obtener todos los registros
   public getAllPredioDetails = async (req: Request, res: Response, next: NextFunction) => {

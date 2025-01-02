@@ -23,10 +23,10 @@ class PredioDetailsService {
   }
 
   // Buscar registro por cuenta
-  public async findPredioDetailsByCuenta(cuenta: number): Promise<Document | null> {
+  public async findPredioDetailsByCuenta(cuenta: number): Promise<PredioDetails | null> {
     if (isEmpty(cuenta)) throw new Error('Cuenta is empty');
 
-    const findPredioDetails: Document | null = await this.predioDetails.findOne({ cuenta });
+    const findPredioDetails: PredioDetails | null = await this.predioDetails.findOne({ cuenta });
     if (!findPredioDetails) throw new Error("PredioDetails doesn't exist");
 
     return findPredioDetails;

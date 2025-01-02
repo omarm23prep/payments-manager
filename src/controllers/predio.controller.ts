@@ -1,9 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import PredioService from '../services/predio.service';
 import { Predio } from '../models/predio.model';
+import { Colinda } from '../models/colinda.model';
+import PredioDetailsService from '../services/prediodetails.service';
+import ColindaService from '../services/colinda.service';
+import { PredioDetails } from '../models/prediodetails';
 
 class PredioController {
   public predioService = new PredioService();
+  public predioDetailsService = new PredioDetailsService();
+  public colindaService = new ColindaService();
 
   public getPredios = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -36,6 +42,28 @@ class PredioController {
       next(error);
     }
   };
+
+  public getDetailsAndBoundaries = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const cuenta: number = parseInt(req.params.cuenta, 10);
+      const predio: PredioDetails | null = await this.predioDetailsService.findPredioDetailsByCuenta(cuenta);
+      const boundaries: Colinda[] = await this.colindaService.findColindasByCuenta(cuenta);
+
+      res.status(200).json({
+        data: {
+          cuenta: predio?.cuenta,
+          propietario: predio?.propietari,
+          domicilio: predio?.domicilio,
+          manzana: predio?.manzana,
+          municipio: predio?.municipian,
+          colindancias: boundaries.map(boundary => boundary.colinda),
+        },
+        message: 'findByCuenta'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   public createPredio = async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -22,7 +22,7 @@ class PredioService {
   public async findPredioByCuenta(cuenta: number): Promise<Predio> {
     if (isEmpty(cuenta)) throw new Error('Cuenta is empty');
 
-    const findPredio: Predio | null = await this.predio.findOne({ CUENTA: cuenta });
+    const findPredio: Predio | null = await this.predio.findOne({ cuenta: cuenta });
     if (!findPredio) throw new Error("Predio doesn't exist");
 
     return findPredio;
@@ -33,7 +33,7 @@ class PredioService {
       throw new Error('Predio data is empty');
     }
 
-    const findPredio: Predio | null = await this.predio.findOne({ CUENTA: predioData.cuenta });
+    const findPredio: Predio | null = await this.predio.findOne({ cuenta: predioData.cuenta });
     if (findPredio) {
       throw new Error(`Predio with CUENTA: ${predioData.cuenta} already exists`);
     }

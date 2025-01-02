@@ -1,3 +1,4 @@
+import { Colinda } from '../models/colinda.model';
 import ColindaModel from '../schemas/colinda.schema';
 import { isEmpty } from '../utils/utils';
 
@@ -9,7 +10,7 @@ class ColindaService {
     return colindas;
   }
 
-  public async findColindaById(colindaId: string): Promise<any> {
+  public async findColindaById(colindaId: string): Promise<Colinda> {
     if (isEmpty(colindaId)) throw new Error('Colinda ID is empty');
 
     const findColinda = await this.colinda.findOne({ _id: colindaId });
@@ -19,11 +20,11 @@ class ColindaService {
   }
 
   // Buscar múltiples registros por cuenta
-  public async findColindasByCuenta(cuenta: number): Promise<any[]> {
+  public async findColindasByCuenta(cuenta: number): Promise<Colinda[]> {
     if (isEmpty(cuenta)) throw new Error('Cuenta is empty');
 
     const findColindas = await this.colinda.find({ cuenta });
-    if (!findColindas || findColindas.length === 0) throw new Error("No Colindas found for the given cuenta");
+    if (!findColindas || findColindas.length === 0) [];//throw new Error("No Colindas found for the given cuenta");
 
     return findColindas;
   }
