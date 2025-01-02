@@ -7,6 +7,7 @@ import UsersRoute from "./routes/users.routes";
 import PrediosRoute from "./routes/predios.routes";
 import PredioDetailsRoute from "./routes/prediodetails.route";
 import ColindasRoute from "./routes/colinda.routes";
+import ContribuyentesRoute from "./routes/contribuyentes.route";
 
 // const app = express();
 // const port = process.env.PORT || 3001;
@@ -25,6 +26,7 @@ const app = new App([
   new UsersRoute(),
   new PrediosRoute(),
   new PredioDetailsRoute(),
-  new ColindasRoute
+  new ColindasRoute(),
+  new ContribuyentesRoute(),
 ])
 app.listen()
