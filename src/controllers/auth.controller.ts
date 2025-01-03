@@ -24,15 +24,15 @@ class AuthController {
 
   // Handle Logout
   public logout = (req: Request, res: Response) => {
-    if (!req.isAuthenticated()) {
-      return res.status(400).json({ message: "User is not logged in" });
-    }
+    // if (!req.isAuthenticated()) {
+    //   return res.status(400).json({ message: "User is not logged in" });
+    // }
 
     req.logout((err) => {
       if (err) {
-        return res.status(500).json({ message: 'Logout failed' });
+        return res.status(500).json({ message: 'Logout failed', status: 500 });
       }
-      res.status(200).json({ message: 'Logged out successfully' });
+      res.status(200).json({ message: 'Logged out successfully', status: 200 });
     });
   };
 }

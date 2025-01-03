@@ -20,14 +20,20 @@ class App {
     this.port = config.port;
 
     this.app.use(cors({
-      origin: this.allowedOrigins
+      origin: this.allowedOrigins,
+      credentials: true,
     }));
     this.app.use(bodyParser.json());
     
     this.app.use(session({
       secret: "This is a secret",// create a secret for prod
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
+      cookie: {
+        secure: false, // Use true in production with HTTPS
+        httpOnly: true, // Prevent client-side access to cookies
+        sameSite: 'none', // Adjust as needed
+      }
     }));
     this.app.use(passport.initialize());
     this.app.use(passport.session());

@@ -4,33 +4,62 @@ import usersModel from '../schemas/users.schema';
 import { isEmpty } from '../utils/utils';
 import { UserError } from '../errors/user.error';
 
+
+type UserModel = User & {_id: string};
 class UserService {
   public users = usersModel;
 
   public async findAllUser(): Promise<User[]> {
-    const users: User[] = await this.users.find();
-    return users;
+    const users = await this.users.find();
+    return users.map(user => {
+      return {
+        id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        role: user.role,
+        age: user.age,
+      } as User
+    });
   }
 
   public async findUserById(userId: string): Promise<User> {
-    if (isEmpty(userId)) throw new Error("UserId is empty");
+    if (isEmpty(userId)) throw new Error("userId is empty");
 
-    const findUser: User | null = await this.users.findOne({ _id: userId });
+    const findUser: UserModel | null = await this.users.findOne({ _id: userId });
     if (!findUser) throw new Error("User doesn't exist");
 
-    return findUser;
+    return {
+      id: findUser._id,
+      fullname: findUser.fullname,
+      email: findUser.email,
+      username: findUser.username,
+      password: findUser.password,
+      role: findUser.role,
+      age: findUser.age,
+    };
   }
 
   public async findUserByUsername(username: string): Promise<User> {
     if (isEmpty(username)) throw new Error("username is empty");
 
-    const findUser: User | null = await this.users.findOne({ username: username });
+    const findUser: UserModel | null = await this.users.findOne({ username: username });
+
     if (!findUser) throw new Error("User doesn't exist");
 
-    return findUser;
+    return {
+      id: findUser._id,
+      fullname: findUser.fullname,
+      email: findUser.email,
+      username: findUser.username,
+      password: findUser.password,
+      role: findUser.role,
+      age: findUser.age,
+    };
   }
 
-  public async createUser(userData: User): Promise<User> {
+  public async createUser(userData: User): Promise<User | null> {
     if (isEmpty(userData)) {
       throw new UserError({
         name: "USER_DATA_EMPTY",

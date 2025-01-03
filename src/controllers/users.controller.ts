@@ -12,7 +12,7 @@ class UsersController {
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' });
     } catch (error) {
-      next(error);
+      res.status(400).json({error: error})
     }
   };
 
@@ -23,16 +23,16 @@ class UsersController {
 
       res.status(200).json({ data: findOneUserData, message: 'findOne' });
     } catch (error) {
-      next(error);
+      res.status(400).json({error: error})
     }
   };
 
   public createUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: User = req.body;
-      const createUserData: User = await this.usersService.createUser(userData);
+      const createUserData: User | null = await this.usersService.createUser(userData);
 
-      res.status(201).json({ message: `El usuario ${createUserData.username} se ha creado satisfactoriamente` });
+      res.status(201).json({ message: `El usuario ${createUserData?.username} se ha creado satisfactoriamente` });
     } catch (error) {
       if (error instanceof UserError) {
         res.status(409).json({

@@ -4,42 +4,43 @@ import bcrypt from "bcrypt";
 import UserService from "../services/users.service";
 import { User } from "../models/users.model";
 
-
 const userService = new UserService();
 
-passport.use(new LocalStrategy(async (username, password, done) => {
-  try {
-    const user = await userService.findUserByUsername(username);
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await userService.findUserByUsername(username);
+      
+      if (!user) {
+        return done(null, false, { message: "Username doesn't exist" });
+      }
 
-    if (!user) { 
-      done(null, false, { message: "Username doesn't exits" }); 
+      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (passwordsMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: "Incorrect password" });
+      }
+    } catch (error) {
+      return done(error);
     }
+  })
+);
 
-    const passwordsMatch = await bcrypt.compare( 
-      password, 
-      user.password 
-    );
-
-    // If the passwords match, return the user object 
-    if (passwordsMatch) {
-        done(null, user);
-    } else {
-        // If the passwords don't match, return an error
-        done(null, false, { message: "Incorrect password" });
-    }
-  } catch (error) {
-    done(error);
-  }
-}));
-
-passport.serializeUser((user: any, done: (error: any, user: any) => void): void => {
-  done(null, user);
+passport.serializeUser((user: Express.User, done) => {
+  done(null, user.id);
 });
 
-
-passport.deserializeUser(async (user: User, done) => {
-    const u = await userService.findUserByUsername(user.username);
-    done(null, u);
+passport.deserializeUser(async (id: string, done) => {
+  try {
+    const user = await userService.findUserById(id);
+    if (!user) {
+      return done(new Error("User not found"), null);
+    }
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
 });
 
 export default passport;
