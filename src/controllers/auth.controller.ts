@@ -8,14 +8,14 @@ class AuthController {
   public login = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('local', (err: any, user: any, info: any) => {
       if (err) {
-          return next(err);
+        return res.status(500).json({ message: err });
       }
       if (!user) {
           return res.status(401).json({ message: info.message });
       }
       req.logIn(user, (err) => {
           if (err) {
-              return next(err);
+            return res.status(500).json({ message: err });
           }
           return res.status(200).json({ message: 'Logged in successfully', user });
       });
