@@ -1,32 +1,23 @@
-// import express, { Request, Response } from 'express';
-
 import App from "./app";
-import IndexRoute from "./routes/index.route";
-import AuthRoutes from "./routes/auth.route"; 
-import UsersRoute from "./routes/users.routes";
-import PrediosRoute from "./routes/predios.routes";
-import PredioDetailsRoute from "./routes/prediodetails.route";
-import ColindasRoute from "./routes/colinda.routes";
-import ContribuyentesRoute from "./routes/contribuyentes.route";
-
-// const app = express();
-// const port = process.env.PORT || 3001;
-
-// app.get('/', (req: Request, res: Response) => {
-//   res.send('Hello, TypeScript Express!');
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server running at http://localhost:${port}`);
-// });
+import IndexRoutes from "./routes/index.routes";
+import AuthRoutes from "./routes/auth.routes"; 
+import UsersRoutes from "./routes/users.routes";
+import PrediosRoutes from "./routes/predios.routes";
+import PredioDetailsRoutes from "./routes/prediodetails.routes";
+import ColindasRoutes from "./routes/colinda.routes";
+import ContribuyentesRoutes from "./routes/contribuyentes.routes";
+import PotablesRoutes from "./routes/potables.routes";
+import DrenajesRoutes from "./routes/drenajes.routes";
 
 const app = new App([
-  new IndexRoute(),
+  new IndexRoutes(),
   new AuthRoutes(),
-  new UsersRoute(),
-  new PrediosRoute(),
-  new PredioDetailsRoute(),
-  new ColindasRoute(),
-  new ContribuyentesRoute(),
+  new UsersRoutes(),
+  new PrediosRoutes(),
+  new PredioDetailsRoutes(),
+  new ColindasRoutes(),
+  new ContribuyentesRoutes(),
+  new PotablesRoutes(),
+  new DrenajesRoutes(),
 ])
-app.listen()
+app.listen();

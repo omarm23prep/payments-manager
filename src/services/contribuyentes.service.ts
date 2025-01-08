@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import contribuyente, { Contribuyente  } from "../schemas/contribuyente";
+import contribuyente, { Contribuyente  } from "../schemas/contribuyente.schema";
 
 class ContribuyenteService {
   /**
