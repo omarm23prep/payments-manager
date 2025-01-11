@@ -8,6 +8,7 @@ import ColindasRoutes from "./routes/colinda.routes";
 import ContribuyentesRoutes from "./routes/contribuyentes.routes";
 import PotablesRoutes from "./routes/potables.routes";
 import DrenajesRoutes from "./routes/drenajes.routes";
+import OrdersRoutes from "./routes/orders.routes";
 
 const app = new App([
   new IndexRoutes(),
@@ -19,5 +20,6 @@ const app = new App([
   new ContribuyentesRoutes(),
   new PotablesRoutes(),
   new DrenajesRoutes(),
+  new OrdersRoutes(),
 ])
 app.listen();

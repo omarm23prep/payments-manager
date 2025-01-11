@@ -3,7 +3,7 @@ import { Routes } from '../interfaces/routes.interfaces';
 import ordersController from '../controllers/orders.controller';
 
 class PotablesRoutes implements Routes {
-  public path = '/potables';
+  public path = '/orders';
   public router = Router();
 
   constructor() {

@@ -4,6 +4,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IOrder extends Document {
   createdAt: string;
   customerName: string;
+  cashierName: string;
   service: string;
   status: string;
   total: number;
@@ -15,6 +16,11 @@ const OrderSchema: Schema<IOrder> = new Schema({
     default: () => format(new Date(), 'dd/MM/yyyy'),
   },
   customerName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  cashierName: {
     type: String,
     required: true,
     trim: true,
