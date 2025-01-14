@@ -6,6 +6,7 @@ export interface IOrder extends Document {
   customerName: string;
   cashierName: string;
   service: string;
+  folio:number;
   status: string;
   total: number;
 }
@@ -28,6 +29,11 @@ const OrderSchema: Schema<IOrder> = new Schema({
   service: {
     type: String,
     required: true,
+  },
+  folio: {
+    type: Number,
+    required: true,
+    min: 0,
   },
   status: {
     type: String,
